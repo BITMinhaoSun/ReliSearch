@@ -21,15 +21,3 @@ Final-answer correctness alone does not tell us whether a search decision was ap
 <p align="center">
   <img src="assets/framework.png" alt="ReliSearch framework: agent rollouts, training-time reliability supervision, GRPO policy updates, and inference with the learned policy." width="1100">
 </p>
-
-During training, ReliSearch samples local conclusions from the current policy and converts their mean sequence uncertainty into reliability estimates using a fixed empirical mapping for each backbone. Two complementary scores supervise search decisions:
-
-- **Current-State Reliability Score:** evaluates no-search decisions by comparing reliability under the current information with a fixed calibration reference.
-- **Search-Action Reliability Score:** evaluates search decisions by measuring the reliability change between matched contexts with and without the retrieved evidence.
-
-The mean action score forms a process reward, which is combined with answer and format rewards for **Group Relative Policy Optimization (GRPO)**. At inference, the learned policy directly generates reasoning, search requests, and final answers, without calibration or local probing.
-
-## Results at a Glance
-
-- **Answer quality:** the Qwen2.5-7B model achieves **69.3 weighted-average Cover Exact Match (CEM)** across seven QA benchmarks, exceeding HiPRAG by **2.1 points**.
-- **Search allocation:** in a separate controlled 3B evaluation, ReliSearch uses **7.4% fewer searches overall** than our HiPRAG reimplementation, with fewer searches on single-hop tasks and more on multi-hop tasks in aggregate.
